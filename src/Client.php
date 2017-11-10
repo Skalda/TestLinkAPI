@@ -295,6 +295,24 @@ class Client
 			return false;
 		}
 	}
+	
+	/**
+	 * @param int $testCaseName
+	 * @return TestCase|bool
+	 */
+	public function getTestCaseByName($testCaseName)
+    {
+        $args = [
+            'testcasename' => $testCaseName,
+        ];
+        $response = $this->_makeSignCall('tl.getTestCaseIDByName', $args);
+
+        if(is_array($response) && isset($response[0])) {
+            return TestCase::createFromArray($this, $response[0]);
+        } else {
+            return false;
+        }
+    }
 
 	/**
 	 * @param PlanTestCase $testCase
